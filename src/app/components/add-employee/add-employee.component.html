@@ -1,0 +1,75 @@
+<div>
+    <h4>{{mode | titlecase}} Employee</h4>
+    <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()">
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="outline">
+                    <mat-label>Employee Code</mat-label>
+                    <input matInput placeholder="" formControlName="empCode">
+                    <mat-error *ngIf="myError('empCode', 'pattern')">Employee code must be 5 characters</mat-error>
+                    <mat-error *ngIf="myError('empCode', 'required')">Employee code required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <input matInput placeholder="" formControlName="empName">
+                    <mat-error *ngIf="myError('empName', 'pattern')">Employee name special characters not allowed
+                    </mat-error>
+                    <mat-error *ngIf="myError('empName', 'required')">Employee name required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col">
+                <mat-form-field appearance="outline">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dob">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="myError('dob', 'age')">Age should be more than 21 years</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="outline">
+                    <mat-label>Date of Joining</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="doj">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col">
+                <mat-form-field appearance="outline">
+                    <mat-label>Qualification</mat-label>
+                    <mat-select formControlName="qualification">
+                        <mat-option *ngFor="let qualification of qualifications" [value]="qualification">
+                            {{qualification}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="myError('qualification', 'required')">Qualification required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="outline">
+                    <mat-label>Manager Code</mat-label>
+                    <input matInput placeholder="" formControlName="managerCode">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col">
+                <button mat-raised-button color="primary" (click)="closeDialog(true)">Cancel</button>
+            </div>
+            <div class="col">
+                <button mat-raised-button color="primary" [disabled]="!employeeForm.valid">Add</button>
+            </div>
+        </div>
+    </form>
+</div>
